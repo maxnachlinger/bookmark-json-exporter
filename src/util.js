@@ -1,5 +1,5 @@
 export const downloadBlob = (filename, blob) => {
-  const url = URL.createObjectURL(blob)
+  const url = window.URL.createObjectURL(blob)
 
   // all this to get a nicer name for the downloaded file
   const a = document.createElement('a')
@@ -20,4 +20,4 @@ export const getCurrentDateStr = () => {
   return `${today.getFullYear()}-${month}-${day}`
 }
 
-export const jsonStringToBlob = (str) => new Blob([str], { type: 'application/json' })
+export const jsonStringToBlob = (str) => new window.Blob([str], { type: 'application/json' })
