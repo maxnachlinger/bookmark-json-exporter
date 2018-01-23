@@ -1,4 +1,4 @@
-export const downloadBlob = (filename, blob) => {
+export const downloadBlob = (window, filename, blob) => {
   const url = window.URL.createObjectURL(blob)
 
   // all this to get a nicer name for the downloaded file
@@ -20,4 +20,11 @@ export const getCurrentDateStr = () => {
   return `${today.getFullYear()}-${month}-${day}`
 }
 
-export const jsonStringToBlob = (str) => new window.Blob([str], { type: 'application/json' })
+export const jsonStringToBlob = (window, str) => new window.Blob([str], { type: 'application/json' })
+
+// TODO - flatten tree to array of groups and links, keep ancestry as a new "path" property, name groups as
+// parent-group-name : child-group-names
+
+export const bookmarksTreeToArrayOfGroups = (tree) => {
+  //
+}

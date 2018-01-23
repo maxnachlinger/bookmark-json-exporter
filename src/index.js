@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const filename = `bookmarks-export-${getCurrentDateStr()}.json`
-    return downloadBlob(filename, jsonStringToBlob(json))
+    return downloadBlob(window, filename, jsonStringToBlob(window, json))
   })
 })
