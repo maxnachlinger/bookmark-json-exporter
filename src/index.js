@@ -1,14 +1,14 @@
-const getBookmarksApi = () => (chrome || browser || {}).bookmarks
+// cross browser bookmarks
+window.browser = (() => window.msBrowser || window.browser || window.chrome)()
 
 const getBookmarksJson = (callback) => {
-  const api = getBookmarksApi()
-  if (!api) {
+  if (!window.browser) {
     return callback(new Error('No bookmarks API found.'))
   }
-  return api.getTree((nodes) => callback(null, JSON.stringify(nodes, null, 2)))
+  return window.browser.bookmarks.getTree((nodes) => callback(null, JSON.stringify(nodes, null, 2)))
 }
 
-const jsonStringToBlob = (str) => new Blob([str], {type: 'application/json'})
+const jsonStringToBlob = (str) => new Blob([str], { type: 'application/json' })
 
 const zeroPadLessThan10 = (i) => i < 10 ? `0${i}` : i
 
