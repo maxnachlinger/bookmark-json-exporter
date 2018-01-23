@@ -13,5 +13,5 @@ npm run build
 
 ### Testing the extension
 - Build the extension (see just above)
-- Open [`chrome://extensions/`](chrome://extensions/)
+- Open a new browser tab and go to: `chrome://extensions/`
 - Drag and drop the `/build` folder on to the `chrome://extensions/` page
