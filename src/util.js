@@ -24,13 +24,13 @@ export const jsonStringToBlob = (window, str) => new window.Blob([str], {type: '
 
 // flattens bookmarks tree to a simple array of link-groups
 export const bookmarksTreeToArrayOfGroups = (tree) => {
-  const root = tree.shift();
-  const toProcess = root.children;
-  const result = {};
+  const root = tree.shift()
+  const toProcess = root.children
+  const result = {}
 
   while (toProcess.length > 0) {
     const {id, parentId, title, children, dateAdded} = toProcess.shift()
-    const parent = result[parentId];
+    const parent = result[parentId]
 
     // leaf node
     if (parent && !children) {
@@ -44,5 +44,5 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
     }
   }
 
-  return Object.values(result);
+  return Object.values(result)
 }
