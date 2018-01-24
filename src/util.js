@@ -22,6 +22,8 @@ export const getCurrentDateStr = () => {
 
 export const jsonStringToBlob = (window, str) => new window.Blob([str], {type: 'application/json'})
 
+export const identity = (i) => i
+
 // flattens bookmarks tree to a simple array of link-groups
 export const bookmarksTreeToArrayOfGroups = (tree) => {
   const toProcess = [tree.shift()]

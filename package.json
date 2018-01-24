@@ -4,7 +4,8 @@
   "description": "A bookmark JSON exporter.",
   "main": "index.js",
   "scripts": {
-    "pretest": "standard --verbose | snazzy",
+    "prebuild": "standard --verbose | snazzy",
+    "pretest": "npm run prebuild",
     "test": "jest",
     "build": "webpack --config config/webpack.js"
   },
