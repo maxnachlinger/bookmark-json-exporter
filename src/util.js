@@ -35,7 +35,7 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
     const parent = result[parentId] || {}
     const parentTitle = parent ? parent.title : ''
 
-    const item = {id, parentId, parentTitle, title, dateAdded};
+    const item = {id, parentId, parentTitle, title, dateAdded}
 
     // leaf node
     if (!children) {
