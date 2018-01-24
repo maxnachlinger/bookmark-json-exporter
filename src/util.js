@@ -35,11 +35,14 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
     // leaf node
     if (parent && !children) {
       parent.links.push({id, parentId, title, dateAdded})
+      continue
     }
 
     // group
     if (children) {
-      result[id] = {id, parentId, title, dateAdded, links: []}
+      // prepend parent's title if it exists
+      const path = parent ? `${parent.path}/${title}` : title
+      result[id] = {id, parentId, title, path, dateAdded, links: []}
       toProcess.push(...children)
     }
   }
