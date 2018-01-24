@@ -1,6 +1,8 @@
 body {
     font-family: sans-serif;
+    font-size: 12px;
     width: 120px;
+    margin: 5px 0 0 5px;
 }
 
 ul {
