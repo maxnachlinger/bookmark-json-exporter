@@ -31,18 +31,18 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
 
   while (toProcess.length > 0) {
     const {id, parentId = 0, title, children, dateAdded, url} = toProcess.shift()
-    const parent = result[parentId]
+
+    const parent = result[parentId] || {}
+    const parentTitle = parent ? parent.title : ''
+
+    const item = {id, parentId, parentTitle, title, dateAdded};
 
     // leaf node
-    if (parent && !children) {
-      parent.links.push({id, parentId, title, dateAdded, url})
-      continue
-    }
-
-    // group
-    if (children) {
-      const parentTitle = parent ? parent.title : ''
-      result[id] = {id, parentId, parentTitle, title, dateAdded, links: []}
+    if (!children) {
+      parent.links.push({...item, url})
+    } else {
+      // group
+      result[id] = {...item, links: []}
       toProcess.push(...children)
     }
   }

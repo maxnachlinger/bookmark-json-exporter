@@ -56,6 +56,14 @@ export const bookmarksTree = [
             index: 0,
             parentId: 2,
             title: 'folder-0'
+          },
+          {
+            dateAdded: 1450821077320,
+            id: 6,
+            index: 0,
+            parentId: 2,
+            title: 'leaf-4',
+            url: 'http://www.test.com/leaf-4'
           }
         ],
         dateAdded: 1499719811772,
@@ -69,7 +77,7 @@ export const bookmarksTree = [
         children: [
           {
             dateAdded: 1450821077320,
-            id: 6,
+            id: 7,
             index: 0,
             parentId: 3,
             title: 'leaf-3',
