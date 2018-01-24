@@ -20,11 +20,29 @@ export const getCurrentDateStr = () => {
   return `${today.getFullYear()}-${month}-${day}`
 }
 
-export const jsonStringToBlob = (window, str) => new window.Blob([str], { type: 'application/json' })
+export const jsonStringToBlob = (window, str) => new window.Blob([str], {type: 'application/json'})
 
-// TODO - flatten tree to array of groups and links, keep ancestry as a new "path" property, name groups as
-// parent-group-name : child-group-names
-
+// flattens bookmarks tree to a simple array of link-groups
 export const bookmarksTreeToArrayOfGroups = (tree) => {
-  //
+  const root = tree.shift();
+  const toProcess = root.children;
+  const result = {};
+
+  while (toProcess.length > 0) {
+    const {id, parentId, title, children, dateAdded} = toProcess.shift()
+    const parent = result[parentId];
+
+    // leaf node
+    if (parent && !children) {
+      parent.links.push({id, parentId, title, dateAdded})
+    }
+
+    // group
+    if (children) {
+      result[id] = {id, parentId, title, dateAdded, links: []}
+      toProcess.push(...children)
+    }
+  }
+
+  return Object.values(result);
 }
