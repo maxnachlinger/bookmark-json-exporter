@@ -1,6 +1,8 @@
 ### bookmark-json-exporter
 A bookmark JSON exporter.
 
+![Silly UI](https://raw.github.com/maxnachlinger/bookmark-json-exporter/master/docs/silly-ui.png)
+
 ### Getting started
 ```shell
 npm i
