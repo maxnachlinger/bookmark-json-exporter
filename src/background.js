@@ -35,7 +35,9 @@ const exportBookmarks = (window, browser, type) => {
 const browser = getBrowser(window)
 browser.runtime.onMessage
   .addListener(({action, payload: {type}}) => {
-    if (action === messageTypes.exportRequested) {
-      return exportBookmarks(window, browser, type)
+    if (action !== messageTypes.exportRequested) {
+      return
     }
+
+    return exportBookmarks(window, browser, type)
   })
