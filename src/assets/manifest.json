@@ -16,5 +16,8 @@
     "default_icon": "16x16.png",
     "default_popup": "index.html"
   },
+  "background": {
+    "scripts": ["background.js"]
+  },
   "manifest_version": 2
 }

@@ -7,7 +7,8 @@
     "prebuild": "standard --verbose | snazzy",
     "pretest": "npm run prebuild",
     "test": "jest",
-    "build": "webpack --config config/webpack.js"
+    "build-dev": "webpack --config config/webpack-dev.js",
+    "build": "webpack --config config/webpack-prod.js"
   },
   "keywords": [],
   "author": "",

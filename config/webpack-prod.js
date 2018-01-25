@@ -3,12 +3,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-const {outputDirectory, sourceAssetsDirectory, sourceEntryPath} = require('./config')
+const {outputDirectory, sourceAssetsDirectory, indexEntryPath, backgroundEntryPath} = require('./config')
 
 module.exports = {
   name: 'app',
   entry: {
-    index: [sourceEntryPath]
+    index: [indexEntryPath],
+    background: [backgroundEntryPath]
   },
   output: {
     path: outputDirectory,

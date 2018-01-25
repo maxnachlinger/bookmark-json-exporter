@@ -1,3 +1,5 @@
+export const getBrowser = (window) => window.msBrowser || window.browser || window.chrome
+
 export const downloadBlob = (window, filename, blob) => {
   const url = window.URL.createObjectURL(blob)
 
@@ -48,3 +50,5 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
   // omit empty groups
     .filter((g) => g.children.length > 0)
 }
+
+export const sendMessage = (browser, message) => browser.runtime.sendMessage(message)

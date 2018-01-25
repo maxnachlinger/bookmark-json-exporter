@@ -1,19 +1,5 @@
-import { bookmarksTreeToArrayOfGroups, downloadBlob, getCurrentDateStr, identity, jsonStringToBlob } from './util'
-
-// cross browser bookmarks
-window.browser = (() => window.msBrowser || window.browser || window.chrome)()
-
-const getBookmarksJson = (transform, callback) => {
-  if (!window.browser) {
-    return callback(new Error('No bookmarks API found.'))
-  }
-  return window.browser.bookmarks.getTree((nodes) => callback(null, JSON.stringify(transform(nodes), null, 2)))
-}
-
-const getExportUiElements = () => [
-  {type: 'tree', transform: identity, elementId: 'export-tree'},
-  {type: 'flattened', transform: bookmarksTreeToArrayOfGroups, elementId: 'export-array'}
-]
+import { getBrowser, sendMessage } from './util'
+import { exportTypes, messageTypes } from './consts'
 
 const showError = (text) => {
   const message = document.getElementById('message')
@@ -21,24 +7,27 @@ const showError = (text) => {
   message.innerText = text
 }
 
-const exportBookmarks = (type, transform) => {
-  console.log('exportBookmarks')
-  return getBookmarksJson(transform, (error, json) => {
-    if (error) {
-      showError(error.message)
-      return
-    }
-
-    const filename = `bookmarks-${type}-${getCurrentDateStr()}.json`
-    return downloadBlob(window, filename, jsonStringToBlob(window, json))
-  })
-}
+const exportUiElements = [
+  {type: exportTypes.tree, elementId: 'export-tree'},
+  {type: exportTypes.flattened, elementId: 'export-array'}
+]
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('loaded')
-  getExportUiElements(document)
-    .forEach(({type, transform, elementId}) => {
-      console.log('adding listener for elementId', elementId)
-      document.getElementById(elementId).addEventListener('click', () => exportBookmarks(type, transform))
+  const browser = getBrowser(window)
+
+  browser.runtime.onMessage
+    .addListener(({action, payload}) => {
+      if (action === messageTypes.exportFailed) {
+        return showError(payload.error)
+      }
+      // OK - perhaps show a green check which fades out
     })
+
+  exportUiElements.forEach(({type, elementId}) => {
+    document.getElementById(elementId)
+      .addEventListener('click', () => sendMessage(browser, {
+        action: messageTypes.exportRequested,
+        payload: {type}
+      }))
+  })
 })
