@@ -1,4 +1,9 @@
-export const getBrowser = (window) => window.msBrowser || window.browser || window.chrome
+export const getBrowser = (window) => {
+  if (getBrowser._browser) {
+    return getBrowser._browser
+  }
+  return getBrowser._browser = window.msBrowser || window.browser || window.chrome
+}
 
 export const downloadBlob = (window, filename, blob) => {
   const url = window.URL.createObjectURL(blob)
