@@ -30,24 +30,21 @@ export const bookmarksTreeToArrayOfGroups = (tree) => {
   const result = {}
 
   while (toProcess.length > 0) {
-    const {id, parentId = 0, title, children, dateAdded, url} = toProcess.shift()
-
-    const parent = result[parentId] || {}
+    const item = toProcess.shift()
+    const parent = result[item.parentId] || {}
     const parentTitle = parent ? parent.title : ''
 
-    const item = {id, parentId, parentTitle, title, dateAdded}
-
     // leaf node
-    if (!children) {
-      parent.links.push({...item, url})
+    if (!item.children) {
+      parent.children.push({...item, parentTitle})
     } else {
       // group
-      result[id] = {...item, links: []}
-      toProcess.push(...children)
+      result[item.id] = {...item, parentTitle, children: []}
+      toProcess.push(...item.children)
     }
   }
 
   return Object.values(result)
   // omit empty groups
-    .filter((g) => g.links.length > 0)
+    .filter((g) => g.children.length > 0)
 }
